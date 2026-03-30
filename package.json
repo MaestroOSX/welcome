@@ -1,0 +1,28 @@
+{
+  "name": "maestro-welcome",
+  "version": "0.0.1",
+  "description": "Maestro Greeter",
+  "main": "main.js",
+  "scripts": {
+  "start": "electron .",
+  "test": "echo \"Error: no test specified\" && exit 1"
+},
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/MaestroOSX/welcome.git"
+  },
+  "keywords": [
+    "greeter",
+    "tour",
+    "welcome"
+  ],
+  "author": "erdemkaymak",
+  "license": "GPL-2.0",
+  "bugs": {
+    "url": "https://github.com/MaestroOSX/welcome/issues"
+  },
+  "homepage": "https://github.com/MaestroOSX/welcome#readme",
+  "devDependencies": {
+    "electron": "^41.1.0"
+  }
+}
