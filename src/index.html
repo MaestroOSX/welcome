@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Maestro</title>
+    <link rel="stylesheet" href="style/.css">
+</head>
+<body>
+    <h1>Maestro'ya Hoşgeldiniz</h1>
+
+    <div class="wrapper">
+        <div id="try">
+            <img src="icons/try.svg" alt="" width="60%">
+            <span>Dene</span>
+        </div>
+        <div id="install">
+            <img src="icons/drive-harddisk.svg" alt="" width="60%">
+            <span>Kur</span>
+        </div>
+    </div>
+
+    <script>
+        const tryBtn = document.getElementById('try');
+        const installBtn = document.getElementById('install');
+
+        function startAnimation() {
+            document.body.classList.add('animate-out');
+        }
+
+        tryBtn.addEventListener('click', startAnimation);
+        installBtn.addEventListener('click', startAnimation);
+    </script>
+</body>
+</html>
