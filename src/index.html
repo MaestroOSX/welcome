@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Welcome to Maestro</title>
-    <link rel="stylesheet" href="style/.css">
+    <link rel="stylesheet" href="style/style.css">
 </head>
+
 <body>
     <h1>Maestro'ya Hoşgeldiniz</h1>
 
@@ -14,7 +16,7 @@
             <img src="icons/try.svg" alt="" width="60%">
             <span>Dene</span>
         </div>
-        <div id="install">
+        <div id="install" onclick="gecikmemoruk('install-ui/select1.html')">
             <img src="icons/drive-harddisk.svg" alt="" width="60%">
             <span>Kur</span>
         </div>
@@ -30,6 +32,16 @@
 
         tryBtn.addEventListener('click', startAnimation);
         installBtn.addEventListener('click', startAnimation);
+
+        function gecikmemoruk(url) {
+            document.getElementById('install').style.opacity = '0.5';
+            document.getElementById('install').style.transform = 'scale(0.95)';
+
+            setTimeout(function () {
+                window.location.href = url;
+            }, 1000);
+        }
     </script>
 </body>
+
 </html>
