@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kurulumunuzu Özelleştirelim</title>
+    <link rel="stylesheet" href="../style/style.css">
+    <style>
+        #disks {
+            width: 85%;
+            height: 190px;
+            background: #313131;
+            border-radius: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            border: 4px solid #1f1f1f;
+        }
+
+        hr {
+            border: 0;
+            height: 1px;
+            background: #404040;
+            width: 90%;
+        }
+
+        span {
+            font-size: 18px;
+            color: #fff;
+            font-family: 'Arimo', sans-serif;
+            font-weight: 500;
+        }
+
+        .disk {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px;
+            margin-left: 5px;
+            border-radius: 20px;
+            transition: all 0.2s ease;
+        }
+
+        .disk:hover {
+            background: #404040;
+            cursor: pointer;
+            border-radius: 20px;
+            scale: 1.007;
+        }
+
+        #continue-btn {
+            margin-top: 20px;
+            padding: 13px 25px;
+            background: #0072ec;
+            color: #fff;
+            border: none;
+            border-radius: 20px;
+            font-size: 16px;
+            font-weight: 700;
+            font-family: 'Arial', sans-serif;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        #continue-btn:hover {
+            background: #0072ec;
+            scale: 1.06;
+        }
+
+        .whichdisk {
+            transition: all 0.3s ease;
+        }
+
+        .whichdisk:hover {
+            transform: translateY(-5px);
+        }
+    </style>
+</head>
+
+<body>
+    <h1 class="whichdisk">Hangi diske kurulum yapmak istiyorsunuz?</h1>
+    <div id="disks">
+        <div class="disk">
+            <img src="../icons/drive-harddisk.svg" alt="" width="4%">
+            <span>/dev/nvme0n1</span>
+        </div>
+
+        <hr>
+
+        <div class="disk">
+            <img src="../icons/drive-harddisk.svg" alt="" width="4%">
+            <span>/dev/sda</span>
+        </div>
+
+        <hr>
+
+        <div class="disk">
+            <img src="../icons/drive-harddisk.svg" alt="" width="4%">
+            <span>/dev/sdb</span>
+        </div>
+    </div>
+
+    <button id="continue-btn">Devam Et</button>
+</body>
+
+</html>
