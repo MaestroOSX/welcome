@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 
 <head>
     <meta charset="UTF-8">
@@ -9,13 +9,19 @@
     <style>
         #disks {
             width: 85%;
-            height: 190px;
+            height: auto;
             background: #313131;
             border-radius: 30px;
             display: flex;
             flex-direction: column;
             justify-content: center;
             border: 4px solid #1f1f1f;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        #body {
+            transition: transform 0.6s ease, opacity 0.5s ease;
         }
 
         hr {
@@ -46,26 +52,6 @@
             background: #404040;
             cursor: pointer;
             border-radius: 20px;
-            scale: 1.007;
-        }
-
-        #continue-btn {
-            margin-top: 20px;
-            padding: 13px 25px;
-            background: #0072ec;
-            color: #fff;
-            border: none;
-            border-radius: 20px;
-            font-size: 16px;
-            font-weight: 700;
-            font-family: 'Arial', sans-serif;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        #continue-btn:hover {
-            background: #0072ec;
-            scale: 1.06;
         }
 
         .whichdisk {
@@ -76,32 +62,89 @@
             transform: translateY(-5px);
         }
     </style>
+    <script>
+        const { ipcRenderer } = require('electron');
+    </script>
 </head>
 
-<body>
+<body id="body">
     <h1 class="whichdisk">Hangi diske kurulum yapmak istiyorsunuz?</h1>
     <div id="disks">
-        <div class="disk">
-            <img src="../icons/drive-harddisk.svg" alt="" width="4%">
-            <span>/dev/nvme0n1</span>
-        </div>
-
-        <hr>
-
-        <div class="disk">
-            <img src="../icons/drive-harddisk.svg" alt="" width="4%">
-            <span>/dev/sda</span>
-        </div>
-
-        <hr>
-
-        <div class="disk">
-            <img src="../icons/drive-harddisk.svg" alt="" width="4%">
-            <span>/dev/sdb</span>
-        </div>
+        <p style="color: #888; text-align: center; padding: 20px;">Diskler yükleniyor...</p>
     </div>
 
-    <button id="continue-btn">Devam Et</button>
+    <button id="continue-btn" onclick="gecikmemoruk('select2.html')">Devam Et</button>
+
+    <script>
+        let selectedDisk = null;
+        const continueBtn = document.getElementById('continue-btn');
+
+        async function loadDisks() {
+            try {
+                const result = await ipcRenderer.invoke('get-disks');
+
+                const disksContainer = document.getElementById('disks');
+                disksContainer.innerHTML = '';
+
+                if (!result.success || result.disks.length === 0) {
+                    disksContainer.innerHTML = '<p style="color: #888; text-align: center; padding: 20px;">Disk bulunamadı</p>';
+                    return;
+                }
+
+                result.disks.forEach((disk, index) => {
+                    const diskDiv = document.createElement('div');
+                    diskDiv.className = 'disk';
+                    diskDiv.innerHTML = `
+                        <img src="../icons/drive-harddisk.svg" alt="" width="4%">
+                        <span>${disk}</span>
+                    `;
+                    diskDiv.addEventListener('click', () => selectDisk(disk, diskDiv));
+                    disksContainer.appendChild(diskDiv);
+
+                    if (index < result.disks.length - 1) {
+                        const hr = document.createElement('hr');
+                        disksContainer.appendChild(hr);
+                    }
+                });
+            } catch (error) {
+                console.error('Disk yükleme hatası:', error);
+                document.getElementById('disks').innerHTML = '<p style="color: #ff6b6b; text-align: center; padding: 20px;">Hata: Diskler alınamadı</p>';
+            }
+        }
+
+        function selectDisk(disk, element) {
+            document.querySelectorAll('.disk').forEach(d => d.style.background = '');
+            element.style.background = '#0072ec';
+            selectedDisk = disk;
+            continueBtn.disabled = false;
+        }
+
+        // continueBtn.addEventListener('click', () => {
+        //     if (selectedDisk) {
+        //         console.log('Seçilen disk:', selectedDisk);
+        //     } else {
+        //         alert('Lütfen bir disk seçin');
+        //     }
+        // });
+
+
+        function gecikmemoruk(url) {
+            document.getElementById('body').style.opacity = '0';
+            document.getElementById('body').style.transform = 'scale(0.9)';
+
+            // To Do: bu amk fonksiyonunu düzeltmeliyim
+            // if (!selectedDisk) {
+            //     alert('Lütfen bir disk seçin');
+            //     return;
+            // }
+
+            setTimeout(function () {
+                window.location.href = url;
+            }, 1000);
+        }
+
+        loadDisks();
+    </script>
 </body>
 
 </html>
