@@ -1,4 +1,5 @@
-const { app, BrowserWindow, Menu } = require('electron');
+const { app, BrowserWindow, Menu, ipcMain } = require('electron');
+const { execSync } = require('child_process');
 
 function createWindow() {
     const win = new BrowserWindow({
@@ -21,4 +22,25 @@ app.whenReady().then(createWindow);
 
 app.on('window-all-closed', () => {
     if (process.platform !== 'darwin') app.quit();
+});
+
+ipcMain.handle('get-disks', async () => {
+    try {
+        const output = execSync('lsblk -nd -o NAME,TYPE', { encoding: 'utf-8' });
+        const lines = output.trim().split('\n');
+        
+        const disks = lines
+            .filter(line => {
+                const [name, type] = line.split(/\s+/);
+                return type === 'disk' && !name.startsWith('loop');
+            })
+            .map(line => {
+                const name = line.split(/\s+/)[0];
+                return `/dev/${name}`;
+            });
+
+        return { success: true, disks };
+    } catch (error) {
+        return { success: false, error: error.message };
+    }
 });
