@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kurulumunuzu Özelleştirelim</title>
+    <link rel="stylesheet" href="../style/style.css">
+    <style>
+        #body {
+            transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        #user {
+            width: 85%;
+            height: 100%;
+            background: #313131;
+            border-radius: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            border: 4px solid #1f1f1f;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        input {
+            margin: 12px;
+            padding: 12px 20px;
+            background: #1f1f1f;
+            border: none;
+            border-radius: 20px;
+            color: #fff;
+            font-size: 16px;
+            transition: all 0.2s ease;
+        }
+
+        #hostname {
+            margin-top: -3px;
+        }
+
+        input::placeholder {
+            color: #a1a1a1;
+        }
+
+        input:focus-visible {
+            outline: none;
+            box-shadow: 0 0 0 2px #0072ec;
+        }
+
+        #usp {
+            margin: 15px auto;
+        }
+
+        #ps1 {
+            color: #e4e4e4;
+            /* font-family: 'Courier New', Courier, monospace; */
+            font-family: 'Arimo', sans-serif;
+            text-align: center;
+            font-weight: 700;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+    </style>
+</head>
+
+<body id="body">
+
+    <h1>Kullanıcınızı Oluşturalım</h1>
+
+    <div id="user">
+        <img src="../icons/user.svg" id="usp" width="16%">
+        <span id="ps1"></span>
+
+        <input id="username" type="text" placeholder="Kullanıcı Adınızı Belirleyin">
+        <input id="hostname" type="text" placeholder="Bilgisayarınızın Adını Belirleyin">
+        <input id="password" type="password" placeholder="Kullacınızın Parolasını Belirleyin">
+    </div>
+
+    <button id="continue-btn" onclick="gecikmemoruk('select3.html')">Devam Et</button>
+
+    <script src="gecikmemoruk.js"></script>
+
+    <script>
+        const usernameInput = document.getElementById('username');
+        const hostnameInput = document.getElementById('hostname');
+        const ps1Display = document.getElementById('ps1');
+
+        function updatePS1() {
+            const user = usernameInput.value || "kullanici";
+            const host = hostnameInput.value || "bilgisayar";
+
+            ps1Display.innerHTML = `${user}<span class="at-sign">@</span>${host}`;
+        }
+
+        usernameInput.addEventListener('input', updatePS1);
+        hostnameInput.addEventListener('input', updatePS1);
+
+
+        updatePS1();
+    </script>
+</body>
+
+</html>
