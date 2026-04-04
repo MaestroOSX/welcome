@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kurulumunuzu Özelleştirelim</title>
+    <link rel="stylesheet" href="../style/style.css">
+    <style>
+        #options {
+            width: 85%;
+            background: #252525;
+            border-radius: 56px;
+            border: 2px solid #333;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        #pricon {
+            margin-top: 20px;
+        }
+
+        .preference-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .preference-item.icon-item {
+            justify-content: center;
+        }
+
+        .preference-item label {
+            margin: 0;
+        }
+
+        input[type="checkbox"] {
+            margin-right: 10px;
+            transform: scale(1.5);
+            accent-color: #0072ec;
+        }
+
+        input[type="checkbox"] + label {
+            font-size: 18px;
+            color: #fff !important;
+            font-family: 'Arimo', sans-serif;
+            font-weight: 500;
+        }
+
+        input[type="text"] {
+            margin-left: 32px;
+            padding: 10px 15px;
+            background: #1f1f1f;
+            border: none;
+            border-radius: 20px;
+            color: #fff;
+            font-size: 16px;
+            transition: all 0.2s ease;
+        }
+
+        input[type="text"]::placeholder {
+            color: #a1a1a1;
+        }
+
+        input[type="text"]:focus-visible {
+            outline: none;
+            box-shadow: 0 0 0 2px #0072ec;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Kişiselleştirme</h1>
+    <div id="options">
+        <div class="preference-item icon-item">
+            <img id="pricon" src="../icons/preferences-desktop-icons.svg" alt="" width="75px">
+        </div>
+
+        <div class="preference-item">
+            <input type="checkbox" name="" id="unoserver">
+            <label for="unoserver">Uno Paket Yöneticisi Sunucusunu Elle Ayarla</label>
+            <input type="text" id="unoserver-text" placeholder="Uno Sunucusu Adresi">
+        </div>
+    </div>
+</body>
+
+</html>
